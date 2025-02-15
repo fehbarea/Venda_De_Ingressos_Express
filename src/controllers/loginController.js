@@ -6,7 +6,7 @@ export async function loginController(req, res){
     try{
         const token = await login(email, password);
 
-        res.cookie('token', `Bearer ${token}`).status(200).json({ message: "sucesso"})
+        res.cookie('token', token).status(200).json({ message: "sucesso"})
     }
     catch(err){
         res.status(400).send({ error: err.message });
