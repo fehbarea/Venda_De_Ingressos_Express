@@ -35,9 +35,11 @@ export async function createUser(name, email, password, isAdmin) {
 
 export async function login(email, password){
 
-    const currentUser = UserModel.findOne(email);
+    const currentUser = await UserModel.findOne({ email: email});
+    console.log(currentUser)
 
     if(currentUser && currentUser.password == password){
+        console.log("email e senha validos")
         return generateToken(currentUser);
     }
 
