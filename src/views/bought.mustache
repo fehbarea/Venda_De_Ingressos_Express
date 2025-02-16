@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            height: 100vh;
+            margin: 0;
+        }
+        section {
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+        }
+        .boughtContainer {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        h1{
+            padding:10px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: rgb(90, 90, 90);
+            position: fixed;
+         }
+        .ticketContainer {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+        .ticketContainer:hover{
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background-color:rgb(204, 204, 204);
+            transform: scale(1.1);
+        }
+        .ticketContainer h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: center;
+            color: rgb(90, 90, 90);
+        }
+        .ticketContainer p {
+            margin: 5px 0;
+        }
+        .ticketContainer button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .ticketContainer button:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+    <script>
+        function handlerClick(id) {
+            window.location.href = `/page/ticket/${id}`;
+        }
+    </script>
+
+
+<body>
+    <h1>Ingressos Comprados</h1>
+    <section>
+    <div class="boughtContainer">
+        {{#tickets}}
+        <div class="ticketContainer">
+            <h3>Ingresso</h3>
+            <p>{{name}}</p>
+            <p>Quantidade: {{quantity}}</p>
+            <button id="{{id}}" onclick="handlerClick('{{id}}')">Visualizar</button>
+        </div>
+        {{/tickets}}
+    </div>
+    //<button id="{{id}}" onclick="handlerClick('{{id}}')">Visualizar</button>
+    <section>
+    
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-import { getTicket, updateTicket, createTicket, deleteTicket, buyTicket } from "../models/ticket.js";
+import { getTicket, updateTicket, createTicket, deleteTicket, buyTicket,getTicketsPerUser } from "../models/ticket.js";
 
 export async function getTicketController(req, res) {
 
@@ -6,7 +6,7 @@ export async function getTicketController(req, res) {
 
     try {
         const result = await getTicket(id);
-        res.status(200).json(result);
+        return result;
     }
     catch (err) {
         console.log("erro com json: " + err)
@@ -58,6 +58,22 @@ export async function buyTicketController(req, res) {
     try {
         const result = await buyTicket(idUser, idTicket);
         res.status(200).json(result);
+    }
+    catch (err) {
+        res.status(400).send({ error: err.message });
+    }
+}
+
+export async function getTicketsPerUserControler(req, res){
+    const id  = req.user.id;
+
+    try{
+        const result = await getTicketsPerUser(id);
+        console.log(result)
+        const ticktsObject = result.map((i)=>( {name: i.name, id: i._id, quantity: i.count }) );
+        console.log(ticktsObject)
+        return(ticktsObject);
+
     }
     catch (err) {
         res.status(400).send({ error: err.message });

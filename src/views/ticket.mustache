@@ -15,26 +15,26 @@
             height: 100vh;
             margin: 0;
         }
-        .homeContainer{
+        .ticketContainer{
             background-color: #fff;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             border-radius: 8px;
             width: 450px;
         }
-        .homeContainer h1{
+        .ticketContainer h2{
             margin-top: 0;
             margin-bottom: 20px;
             text-align: center;
-            color:rgb(66, 66, 66)
-        }
-        .homeContainer h2{
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-align: left;
             color:rgb(90, 90, 90)
         }
-        .homeContainer button {
+        .ticketContainer li{
+            color:rgb(90, 90, 90);
+            text-align: left;
+            padding-block: 10px;
+            font-size: 22px
+        }
+                .ticketContainer button {
             width: 100%;
             padding: 10px;
             background-color: #007bff;
@@ -43,13 +43,11 @@
             color: #fff;
             font-size: 16px;
             cursor: pointer;
-            margin-block:5px
         }
-        .homeContainer  button:hover {
+        .ticketContainer button:hover {
             background-color: #0056b3;
         }
 </style>
-
 <script>
 function handlerClickComprados(){
     console.log("entrou")
@@ -58,11 +56,14 @@ function handlerClickComprados(){
 
 </script>
 <body>
-    <div class='homeContainer'>
-    <h1>Olá, {{name}}</h2>
-    <h2>Ingressos<h2>
-    <button onclick="handlerClickComprados()" >Comprados</button>
-    <button>Comprar</button>
+    <div class='ticketContainer'>
+    <h2>{{name}}<h2>
+    <ul>
+        <li>Catetogia: {{category}}</li>
+        <li>Valor: {{price}}</li>
+        <li>Local: {{place}}</li>
+    </ul>
+    <button onclick="handlerClickComprados()" >Abrir outro ingresso</button>
     </div>
 </body>
 </body>

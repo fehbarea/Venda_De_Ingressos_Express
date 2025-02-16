@@ -5,6 +5,8 @@ const ticketSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
         price: { type: Number, required: true },
+        place:  { type: Number, required: true },
+        category:  { type: Number, required: true },
         totalQuantity: { type: Number, required: true },
         soldQuantity: { type: Number, required: true },
         boughtBy:[{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
@@ -55,7 +57,7 @@ export async function getTicket(id){
         throw new customError(400, 'Ticket não encontrado');
 
     }
-
+    
     return ticket;
 }
 
@@ -71,15 +73,14 @@ export async function deleteTicket(id) {
 }
 
 export async function buyTicket(idUser, idTicket) {
-    console.log(idTicket)
 
-    const ticket = await ticketModel.findById(idTicket );
-    console.log(ticket)
+    const ticket = await ticketModel.findById(idTicket);
+
     if (!ticket) {
         throw new customError(400, 'Ticket não encontrado');
     }
 
-    if(ticket.soldQuantity > ticket.totalQuantity){
+    if(ticket.soldQuantity >= ticket.totalQuantity){
         throw new customError(400, 'Nao existem mais ingressos disponiveis');
     }
 
@@ -88,4 +89,21 @@ export async function buyTicket(idUser, idTicket) {
 
     await ticket.save();
     return ticket;
+}
+
+export async function getTicketsPerUser(id) {
+
+    const tickets = await ticketModel.find({boughtBy: id});
+
+    if(!tickets){
+        throw new customError(400, 'Nehum ticket comprado');
+    }
+    
+    const ticketCounts = tickets.reduce((acc, ticket) => {
+        const count = ticket.boughtBy.filter(userId => userId.equals(id)).length;
+        acc.push({ ...ticket.toObject(), count: count });
+        return acc;
+    }, []);
+
+    return ticketCounts;
 }
