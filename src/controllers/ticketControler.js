@@ -1,6 +1,7 @@
-import { getTicket, updateTicket, createTicket, deleteTicket, buyTicket,getTicketsPerUser } from "../models/ticket.js";
+import customError from "../customErrors/CustomError.js";
+import { getTicket, updateTicket, createTicket, deleteTicket, buyTicket,getTicketsPerUser, getAllTickets } from "../models/ticket.js";
 
-export async function getTicketController(req, res) {
+export async function getTicketController(req, res, next) {
 
     const { id } = req.params;
 
@@ -9,12 +10,23 @@ export async function getTicketController(req, res) {
         return result;
     }
     catch (err) {
+        console.log("erro com json: " + err);
+        next(new customError(400, { error: err.message }));
+    }
+}
+export async function getAllTicketController(req, res, next) {
+
+    try {
+        const result = await getAllTickets();
+        return result;
+    }
+    catch (err) {
         console.log("erro com json: " + err)
-        res.status(400).send({ error: err.message });
+       next(new customError(400, { error: err.message }));
     }
 }
 
-export async function createTicketController(req, res) {
+export async function createTicketController(req, res, next) {
     const { name, price, quantity } = req.body;
 
     try {
@@ -35,11 +47,11 @@ export async function updateTicketController(req, res) {
         res.status(200).json(result);
     }
     catch (err) {
-        res.status(400).send({ error: err.message });
+        next(new customError(400,err.message ));
     }
 }
 
-export async function deleteTicketController(req, res) {
+export async function deleteTicketController(req, res, next) {
 
     const { id } = req.params;
 
@@ -48,34 +60,34 @@ export async function deleteTicketController(req, res) {
         res.status(200).json(result);
     }
     catch (err) {
-        res.status(400).send({ error: err.message });
+        next( new customError(400, { error: err.message }));
     }
 }
 
-export async function buyTicketController(req, res) {
-    const { idUser, idTicket } = req.body;
+export async function buyTicketController(req, res, next) {
+    const { idTicket } = req.params;
+    const idUser = req.user.id;
 
     try {
         const result = await buyTicket(idUser, idTicket);
-        res.status(200).json(result);
+        return result;
     }
     catch (err) {
-        res.status(400).send({ error: err.message });
+        next(new customError(400, err.message));
     }
 }
 
-export async function getTicketsPerUserControler(req, res){
+export async function getTicketsPerUserControler(req, res, next){
     const id  = req.user.id;
 
     try{
+
         const result = await getTicketsPerUser(id);
-        console.log(result)
         const ticktsObject = result.map((i)=>( {name: i.name, id: i._id, quantity: i.count }) );
-        console.log(ticktsObject)
         return(ticktsObject);
 
     }
     catch (err) {
-        res.status(400).send({ error: err.message });
+        next(new customError(400,err.message));
     }
 }

@@ -5,8 +5,8 @@ const ticketSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
         price: { type: Number, required: true },
-        place:  { type: Number, required: true },
-        category:  { type: Number, required: true },
+        place:  { type: String},
+        category:  { type: String},
         totalQuantity: { type: Number, required: true },
         soldQuantity: { type: Number, required: true },
         boughtBy:[{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
@@ -61,6 +61,18 @@ export async function getTicket(id){
     return ticket;
 }
 
+export async function getAllTickets(id){
+
+    const tickets = await ticketModel.find()
+    if (!tickets) {
+        throw new customError(400, 'Nenhum ticket cadastrado');
+
+    }
+    
+    return tickets;
+}
+
+
 export async function deleteTicket(id) {
     
     const deletedTicket = await ticketModel.deleteOne({ _id: id });
@@ -100,7 +112,7 @@ export async function getTicketsPerUser(id) {
     }
     
     const ticketCounts = tickets.reduce((acc, ticket) => {
-        const count = ticket.boughtBy.filter(userId => userId.equals(id)).length;
+        const count = ticket.boughtBy.filter(userId => userId && userId.equals(id)).length;
         acc.push({ ...ticket.toObject(), count: count });
         return acc;
     }, []);

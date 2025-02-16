@@ -74,46 +74,32 @@
         .ticketContainer button:hover {
             background-color: #0056b3;
         }
-        .buyButton {
-            padding: 10px 20px;
-            background-color: #28a745;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .buyButton:hover {
-            background-color: #218838;
-        }
 </style>
 
     <script>
         function handlerClick(id) {
-            window.location.href = `/page/ticket/${id}`;
-        }
-         function handlerClickBuy() {
-            window.location.href = `/page/home`;
+            window.location.href = `/page/buyNew/${id}`
         }
     </script>
 
 
 <body>
-    <h1>Ingressos Comprados</h1>
+    <h1>Ingressos Disponíveis</h1>
     <section>
-    <div class="boughtContainer">
-        {{#tickets}}
-        <div class="ticketContainer">
-            <h3>Ingresso</h3>
-            <p>{{name}}</p>
-            <p>Quantidade: {{quantity}}</p>
-            <button id="{{id}}" onclick="handlerClick('{{id}}')">Visualizar</button>
+        <div class="boughtContainer">
+            {{#tickets}}
+            <div class="ticketContainer">
+                <h3>Ingresso</h3>
+                <p>{{name}}</p>
+                <p>Quantidade disponível: {{quantityAvailable}}</p>
+                <p>Categoria: {{category}}</p>
+                <p>Local: {{place}}</p>
+                <p>Valor: {{price}}</p>
+                <button onclick="handlerClick('{{_id}}')">Comprar</button>
+            </div>
+            {{/tickets}}
         </div>
-        {{/tickets}}
-    </div>
-
-    <button class="buyButton" onclick="handlerClickBuy()" >Comprar ingresso</button>
-    
+    </section>
 </body>
 
 </html>

@@ -52,8 +52,12 @@
 
 <script>
 function handlerClickComprados(){
-    console.log("entrou")
+
     window.location.href = `/page/bought`
+}
+function handlerClickComprar(){
+
+    window.location.href = `/page/buy`
 }
 
 </script>
@@ -62,7 +66,7 @@ function handlerClickComprados(){
     <h1>Olá, {{name}}</h2>
     <h2>Ingressos<h2>
     <button onclick="handlerClickComprados()" >Comprados</button>
-    <button>Comprar</button>
+    <button onclick="handlerClickComprar()" >Comprar</button>
     </div>
 </body>
 </body>
