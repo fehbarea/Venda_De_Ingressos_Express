@@ -6,10 +6,10 @@ export async function loginController(req, res){
     try{
         const token = await login(email, password);
 
-        res.cookie('token', token).status(200).json({ message: "sucesso"})
+        res.cookie('token', token).status(200).redirect("/page/home");
     }
     catch(err){
-        res.status(400).send({ error: err.message });
+        res.status(400).render('login', { error: err.message });
     }
 }
 
@@ -24,4 +24,3 @@ export async function registerController(req, res) {
         res.status(400).send({ error: err.message });
     }
 }
-

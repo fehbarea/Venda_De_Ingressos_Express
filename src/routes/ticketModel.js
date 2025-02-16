@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/',authenticatedToken, isAdmin, createTicketController);
 
-router.get('/:id', authenticatedToken, isAdmin, getTicketController);
+router.get('/:id', authenticatedToken, getTicketController);
 
 router.put('/:id', authenticatedToken, isAdmin, updateTicketController);
 

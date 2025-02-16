@@ -5,6 +5,7 @@ export function generateToken(user){
 
     const payload = {
         id: user.id,
+        name:user.name,
         isAdmin: user.isAdmin
     }
 
