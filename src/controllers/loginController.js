@@ -18,9 +18,9 @@ export async function registerController(req, res) {
 
     try{
         const user = await createUser(name, email, password, isAdmin);
-        res.status(200).json(user);
+        res.status(200).status(200).redirect("/page/login");
     }
     catch(err){
-        res.status(400).send({ error: err.message });
+        res.status(400).render('register', { error: err.message });
     }
 }

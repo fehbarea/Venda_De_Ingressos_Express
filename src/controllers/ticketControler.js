@@ -11,7 +11,7 @@ export async function getTicketController(req, res, next) {
     }
     catch (err) {
         console.log("erro com json: " + err);
-        next(new customError(400, { error: err.message }));
+        next(new customError(400, err.message));
     }
 }
 export async function getAllTicketController(req, res, next) {
@@ -22,7 +22,7 @@ export async function getAllTicketController(req, res, next) {
     }
     catch (err) {
         console.log("erro com json: " + err)
-       next(new customError(400, { error: err.message }));
+       next(new customError(400,err.message));
     }
 }
 
@@ -60,7 +60,7 @@ export async function deleteTicketController(req, res, next) {
         res.status(200).json(result);
     }
     catch (err) {
-        next( new customError(400, { error: err.message }));
+        next( new customError(400,err.message));
     }
 }
 

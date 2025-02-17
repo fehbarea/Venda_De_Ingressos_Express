@@ -61,13 +61,9 @@ export async function getTicket(id){
     return ticket;
 }
 
-export async function getAllTickets(id){
+export async function getAllTickets(){
 
     const tickets = await ticketModel.find()
-    if (!tickets) {
-        throw new customError(400, 'Nenhum ticket cadastrado');
-
-    }
     
     return tickets;
 }

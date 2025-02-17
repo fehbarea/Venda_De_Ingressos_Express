@@ -1,10 +1,17 @@
 
 import customError from "../customErrors/CustomError.js";
 import { getTicketsPerUserControler, getTicketController, getAllTicketController, buyTicketController } from "./ticketControler.js";
+
 export function loginPage(req, res) {
 
     res.render('login', { error: null })
 }
+
+export function registerPage(req, res) {
+
+    res.render('register', { error: null })
+}
+
 
 export function homePage(req, res) {
 

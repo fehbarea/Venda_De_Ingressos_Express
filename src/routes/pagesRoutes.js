@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { homePage, loginPage, boughtPage, ticketPage, buyTicketPage, buyNewTicketPage } from '../controllers/pagesController.js';
+import { homePage, loginPage, boughtPage, ticketPage, buyTicketPage, buyNewTicketPage, registerPage } from '../controllers/pagesController.js';
 import { authenticatedToken } from '../middleware/verifyAuthenticationMiddleware.js'
 
 const router = Router();
@@ -14,7 +14,9 @@ router.get('/ticket/:id', authenticatedToken, ticketPage);
 
 router.get('/buy', authenticatedToken, buyTicketPage)
 
-router.get('/buyNew/:idTicket', authenticatedToken, buyNewTicketPage)
+router.get('/buyNew/:idTicket', authenticatedToken, buyNewTicketPage);
+
+router.get('/register', registerPage);
 
 
 export default router; 

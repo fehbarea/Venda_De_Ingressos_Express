@@ -9,7 +9,7 @@ export function authenticatedToken(req, res, next){
         req.user = user;
         return next();
     }
-
+    
     return next(new CustomError(401, 'Token inválido!'));
 }
 
